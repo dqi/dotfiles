@@ -22,7 +22,6 @@ call vundle#end()
 filetype plugin indent on
 
 syntax enable
-let g:solarized_contrast="high"
 let g:solarized_termcolors=256 "export TERM=xterm-256color
 colorscheme solarized
 set background=dark
@@ -54,4 +53,4 @@ let g:ycm_autoclose_preview_window_after_completion=1
 
 " Fix whitespace with Control+d
 map <C-d> :FixWhitespace<CR>
-map! <C-d> :FixWhitespace<CR>
+map! <C-d> <Esc>:FixWhitespace<CR>
