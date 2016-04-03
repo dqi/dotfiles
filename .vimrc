@@ -17,6 +17,9 @@ Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe' " pip install jedi for python
 Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-sleuth'
+Plugin 'ARM9/arm-syntax-vim'
+Plugin 'ConradIrwin/vim-bracketed-paste'
 
 call vundle#end()
 filetype plugin indent on
@@ -28,7 +31,7 @@ set background=dark
 
 filetype indent on
 set number
-set autoindent
+set wildmenu
 
 " Rainbows
 let g:rainbow_active = 1
@@ -48,9 +51,19 @@ set laststatus=2
 map <C-s> :w<CR>
 map! <C-s> <Esc>:w<CR>
 
+" Control+e to save as root
+map <C-e> :w !sudo tee %<CR>
+map! <C-e> <Esc>:w !sudo tee %<CR>
+
+
 " Close completion window after use
 let g:ycm_autoclose_preview_window_after_completion=1
 
 " Fix whitespace with Control+d
 map <C-d> :FixWhitespace<CR>
 map! <C-d> <Esc>:FixWhitespace<CR>
+
+au BufNewFile,BufRead *.s,*.S set filetype=arm " arm = armv6/7
+
+" Pastetoggle
+set pastetoggle=<F2>
