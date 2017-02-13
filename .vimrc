@@ -3,32 +3,32 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'gmarik/vundle.vim'
+
 Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'scrooloose/nerdtree'
-Plugin 'SirVer/ultisnips'
+Plugin 'conradirwin/vim-bracketed-paste'
+Plugin 'haya14busa/incsearch.vim'
 Plugin 'honza/vim-snippets'
-Plugin 'Valloric/YouCompleteMe' " pip install jedi for python
 Plugin 'junegunn/rainbow_parentheses.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'ARM9/arm-syntax-vim'
-Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'justinmk/vim-sneak'
 Plugin 'majutsushi/tagbar'
+Plugin 'petRUShka/vim-magma'
+Plugin 'raimondi/delimitmate'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'sirver/ultisnips'
+Plugin 'sjl/badwolf'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'sjl/badwolf'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'Raimondi/delimitMate'
+Plugin 'valloric/YouCompleteMe'
 Plugin 'wellle/targets.vim'
-Plugin 'justinmk/vim-sneak'
 
 call vundle#end()
 
-filetype on
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 syntax enable
 
 set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%]%=[%04l,%04v]
@@ -62,6 +62,8 @@ au VimEnter * RainbowParentheses
 
 " NERDtree toggle
 noremap <F1> :NERDTreeToggle<CR>
+let g:NERDTreeMinimalUI=1
+
 " Tagbar toggle
 noremap <F2> :TagbarToggle<CR>
 
@@ -109,6 +111,9 @@ let g:syntastic_warning_symbol = "⚠"
 map <silent> k gk
 map <silent> j gj
 
+let g:sneak#streak = 1
+let g:sneak#s_next = 1
+
 " Hardcore vim user detected
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -145,7 +150,7 @@ set noswapfile
 noremap <leader>rr :source ~/.vimrc<CR>
 " Rc Edit
 noremap <leader>re :tabe ~/.vimrc<CR>
-" Hex read
+" Hex Read
 noremap <Leader>hr :%!xxd<CR> :set filetype=xxd<CR>
 " Hex write
 noremap <Leader>hw :%!xxd -r<CR> :set binary<CR> :filetype detect<CR>
