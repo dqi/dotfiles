@@ -15,15 +15,17 @@ Plugin 'majutsushi/tagbar'
 Plugin 'petRUShka/vim-magma'
 Plugin 'raimondi/delimitmate'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
 Plugin 'sirver/ultisnips'
 Plugin 'sjl/badwolf'
+Plugin 'skywind3000/asyncrun.vim'
+Plugin 'suoto/vim-hdl'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'valloric/YouCompleteMe'
+Plugin 'w0rp/ale'
 Plugin 'wellle/targets.vim'
 
 call vundle#end()
@@ -31,9 +33,14 @@ call vundle#end()
 filetype plugin indent on
 syntax enable
 
-set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%]%=[%04l,%04v]
+set formatoptions-=t
+set formatoptions+=l
+set lazyredraw
+set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%]%=%{ALEGetStatusLine()}\ [%04l,%04v]
 set autoindent
+set wrap
 set textwidth=80
+set nolist
 set linebreak
 set breakindent
 set wildmenu
@@ -97,19 +104,27 @@ nnoremap <leader>g :YcmCompleter GoTo<CR>
 " Pastetoggle
 set pastetoggle=<F11>
 
-" Syntastic options
-noremap <Leader>e :Errors<cr>
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_c_checkers=['gcc']
-let g:syntastic_python_flake8_args='--ignore=E128,E231,E122,F403,E501'
-let g:syntastic_check_on_open = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
+" ALE options
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_statusline_format = ['✗ %d', '⚠ %d', '⬥ ok']
+let g:ale_python_flake8_options='--ignore=E122,E128,E231,F403,E501'
+
+" Asyncrun options
+noremap <Leader>as :AsyncStop<CR>
+augroup vimrc
+    " I changed asyncrun to open vertical. (s/botright/vert/)
+    autocmd User AsyncRunStop call asyncrun#quickfix_toggle(100, 0)
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(100, 1)
+augroup END
 
 " cursor moves as expected with wrapped lines
 map <silent> k gk
 map <silent> j gj
+
+" Easier moving between tabs
+nnoremap L gt
+nnoremap H gT
 
 let g:sneak#streak = 1
 let g:sneak#s_next = 1
@@ -163,4 +178,4 @@ noremap <Leader>st :tabe ~/.vim/bundle/vim-snippets/snippets/tex.snippets<CR>
 " cd
 noremap <leader>cd :lcd %:h<CR>
 " Execute Python
-noremap <Leader>ep :!python %<CR>
+noremap <Leader>ep :AsyncRun python %<CR>
